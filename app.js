@@ -5,6 +5,7 @@ const MONGO_URL = "mongodb://127.0.0.1:27017/HAVENLY";
 const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejs_mate = require("ejs-mate");
 
 
 
@@ -26,7 +27,8 @@ app.set("view engine" , "ejs");
 app.set("views" , path.join(__dirname,"views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
+app.engine("ejs" , ejs_mate);
+app.use(express.static(path.join(__dirname,"/public")));
 
 app.get("/", (req, res) => {
   res.send("Hello, I am root");
