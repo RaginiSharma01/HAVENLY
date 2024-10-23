@@ -1,37 +1,104 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WanderLust</title>
-  </head>
-  <body>
-    <h3>Create a New Listing</h3>
-    <form method="POST" action="/listings">
-      <input name="listing[title]" placeholder="enter title" type="text" />
-      <br /><br />
-      <textarea
-        name="listing[description]"
-        placeholder="enter description"
-      ></textarea>
-      <br /><br />
-      <input
-        name="listing[image]"
-        placeholder="enter image URL/Link"
-        type="text"
-      />
-      <br /><br />
-      <input name="listing[price]" placeholder="enter price" type="number" />
-      <br /><br />
-      <input name="listing[country]" placeholder="enter country" type="text" />
-      <br /><br />
-      <input
-        name="listing[location]"
-        placeholder="enter location"
-        type="text"
-      />
-      <br /><br />
-      <button>Add</button>
+<% layout('/layouts/boilerplate') %>
+<body>
+    
+    
+    <div class="row !important">
+        
+        <div class="col-8 offset-2 !important">
+            <br/>
+            <br/>
+            <h3 >Create a New Listing</h3>
+    <form method="POST" action="/listings" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label for="title" class="form-lable">Title</label> <br>
+            <input class="from-control" name="listing[title]" placeholder="Enter title" type="text" required />
+            <br /><br />
+
+            <div>
+                <label for="description" class="form-lable">Description</label> <br>
+                <textarea  class =" from-control"name="listing[description]" placeholder="Enter description" required></textarea>
+                <br /><br />
+
+            </div>
+            
+
+
+        </div>
+        
+
+        <div class="mb-3">
+ 
+            <label for="image-url" class="form-lable">Image URL:</label><br>
+            <input class="from-control" name="listing[image_url]" id="image-url" placeholder="Enter image URL/Link" type="text" />
+            <br /><br />
+    
+
+        </div>
+
+
+        <div class="mb-3">
+
+            <label for="image-file" class="form-lable">Upload Image:</label> <br>
+            <input class="from-control" name="listing[image_file]" id="image-file" type="file" accept="image/*" />
+            <br /><br />
+
+        </div>
+       
+
+        <div class="row">
+            <div class="mb-3 col-4">
+                <label for="price" class="form-lable">Price</label><br>
+                <input class="from-control" 
+                name="listing[price]" 
+                placeholder="Enter price"
+                type="number"/>
+                <br /><br />
+    
+    
+            </div>
+            
+            <div class="mb-3 col-md-8">
+    
+                <label for="country"
+                 class="form-lable">country
+                </label>
+                <br>
+
+                <input name="listing[country]"
+                 placeholder="Enter country" 
+                 type="text" required />
+                <br />
+                <br />
+    
+            </div>
+        </div>
+
+        
+
+        <div class="mb-3">
+            <label for="location" class="form-lable">Location</label>
+            <br>
+            <input class="from-control"
+            name="listing[location]" 
+            placeholder="Enter location" 
+            type="text" required />
+            <br />
+            <br />
+            
+
+
+
+        </div>
+       
+        <button type="button" class="btn btn-dark add-btn">Add</button>
+
+        <br>
+        <br>
+
+
     </form>
-  </body>
-</html>
+</div>
+</div>
+</body>
+

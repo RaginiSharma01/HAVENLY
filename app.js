@@ -29,6 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs" , ejs_mate);
 app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static('public'));
+
 
 app.get("/", (req, res) => {
   res.send("Hello, I am root");
@@ -47,7 +49,7 @@ app.get("/listings", async(req,res)=>{
 app.get ("/listings/new" , (req , res)=>{
   res.render("new" );
   });
-  
+    
 
  //show route 
  app.get("/listings/:id", async (req, res) => {

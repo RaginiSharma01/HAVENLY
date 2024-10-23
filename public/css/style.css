@@ -1,7 +1,19 @@
-/* body{
-    background-color: pink;
-} */
+body{
+    /* // <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 200 to 800 */
 
+
+  font-family: "Plus Jakarta Sans", serif !important ;
+  font-optical-sizing: auto;
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  min-height: 100hv;
+}
+
+.container{
+    flex: 1;
+}
 .navbar{
     height: 5rem;
     background-color: white;
@@ -45,4 +57,67 @@
     height:8rem ;
     background-color:gainsboro ;
     align-items:space-evenly;
+}
+/* Ensure full-width container */
+.container {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    max-width: 100% !important; /* Use full width */
+}
+
+/* Remove row gap */
+.row {
+    gap: 0 !important; /* No gap between columns */
+}
+
+/* Remove column padding */
+.col-md-4, .col-sm-1, .col-lg-3 {
+    width: 100%;
+    padding: 0 !important; /* Remove internal padding */
+}
+
+/* Card adjustments */
+.card {
+    margin: 0 !important; /* No margin between cards */
+    margin-bottom: 1rem !important; /* Vertical space between rows */
+    width: 100% !important; /* Full width inside the column */
+    border: none !important;
+  
+}
+
+/* Card image adjustments */
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    object-fit: cover !important;
+
+}
+
+/* Card body adjustments */
+.card-body {
+    padding: 0 !important;
+}
+
+/* Card text adjustments */
+.card-text p {
+    font-weight: 400 !important;
+}
+
+/* Link styling */
+.listingLink {
+    text-decoration: none;
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.5;
+    background-color: white;
+}
+
+.add-btn{
+    background-color: #fe424d !important;
+    border: none !important;
 }

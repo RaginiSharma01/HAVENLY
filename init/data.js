@@ -324,20 +324,16 @@ const sampleListings = [
     country: "Maldives",
   },
   {
-   
-            title: "Ski Chalet in Aspen",
-          description: "A cozy ski chalet perfect for winter getaways.",
-          image: {
-              filename: 'listingimage',
-              url: 'https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60'
-          },
-          price: 350,
-          location: "Aspen, CO",
-          country: "USA"
-      
-      // Other listings...
-  
-  
+    title: "Ski Chalet in Aspen",
+    description:
+      "Hit the slopes in style with this luxurious ski chalet in the world-famous Aspen ski resort.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGxha2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+    },
+    price: 4000,
+    location: "Aspen",
+    country: "United States",
   },
   {
     title: "Secluded Beach House in Costa Rica",
