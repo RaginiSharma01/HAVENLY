@@ -60,6 +60,8 @@ body{
 }
 /* Ensure full-width container */
 .container {
+   
+
     margin: 0 auto !important;
     padding: 0 !important;
     max-width: 100% !important; /* Use full width */
@@ -120,4 +122,19 @@ body{
 .add-btn{
     background-color: #fe424d !important;
     border: none !important;
+}
+
+.edit-btn{
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/*show*/
+.show-img{
+    height:30vh;
+    
+}
+.show-card{
+   padding-left: 0;
+   padding-right: 0; 
 }

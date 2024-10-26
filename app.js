@@ -6,7 +6,10 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejs_mate = require("ejs-mate");
-
+const price = parseFloat(Listing.price);
+const wrapAsync = require("./utils/wrapAsync.js");
+const ExpressError = require("./utils/expressError.js");
+const { listingSchema} = require("./schema.js");
 
 
 console.log("Connecting to MongoDB with URL:", MONGO_URL); // Added for debugging
@@ -36,92 +39,93 @@ app.get("/", (req, res) => {
   res.send("Hello, I am root");
 });
 
+const validateListing = (req,res,next)=>{
+  let {error} = listingSchema.validate(req.body);
+  console.log(error);
+  if(error){
+    let errMsg = error.details.map((el)=>el.message).join(",");
+    throw new ExpressError(400 , errMsg)
+  }else{
+    next();
+  }
+}
+
 
 //index route
 
-app.get("/listings", async(req,res)=>{
-  const allListings = await Listing.find({});
-  res.render ("index.ejs" , {allListings});
-});
+app.get("/listings", wrapAsync(async (req, res) => {
+
+      const allListings = await Listing.find({});
+     // console.log(allListings); // Debugging: check the structure of your listings
+      res.render("index.ejs", { allListings });
+}));
 
 //new route
 
-app.get ("/listings/new" , (req , res)=>{
-  res.render("new" );
-  });
+app.get("/listings/new", (req, res) => {
+  res.render("new");
+});
     
 
  //show route 
- app.get("/listings/:id", async (req, res) => {
+ app.get("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
-  try {
+ 
     const listing = await Listing.findById(id);
     if (!listing) {
       return res.status(404).send("Listing not found");
     }
     res.render("show.ejs", { listing });
-  } catch (err) {
-    console.error("Error finding listing:", err);
-    res.status(500).send("Error retrieving listing");
-  }
-});
+}));
 
 //Create route
-app.post("/listings", async (req, res) => {
-  try {
-      
+app.post("/listings", validateListing,
+  wrapAsync(async (req, res,next) => {   
     const newListing = new Listing(req.body.listing);  // No nested structure
-
     await newListing.save();
     res.redirect("/listings");
-  } catch (error) {
-    console.error("Error creating the listing:", error);
-    res.status(500).send("Error creating the listing. Please try again.");
-  }
-});
+  
+  })
+);
 
 //edit route
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
   const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send("Invalid ID format");
-  }
+  const listing = await Listing.findById(id);
+  res.render("edit", { listing });
+}));
 
-  try {
-    const listing = await Listing.findById(id);
-    if (!listing) {
-      return res.status(404).send("Listing not found");
-    }
-    res.render("edit", { listing });
-  } catch (err) {
-    console.error("Error finding listing:", err);
-    res.status(500).send("Error retrieving listing");
-  }
-});
 
-//Update
-app.put("/listings/:id", async (req, res) => {
-  try {
+
+//Update route
+app.put("/listings/:id", validateListing,
+   wrapAsync(async (req, res) => {
       let { id } = req.params;
       await Listing.findByIdAndUpdate(id, { ...req.body.listing });
       res.redirect(`/listings/${id}`);
-  } catch (error) {
-      console.error(error);
-      res.status(500).send('Server Error');
-  }
-});
 
+}));
 
 
 // delete route
 
-app.delete("/listings/:id" ,async (req,res)=>{
+app.delete("/listings/:id" , wrapAsync(async (req,res)=>{
   let {id} = req.params;
   let deletedListing = await Listing.findByIdAndDelete(id) ;
   console.log (deletedListing)
   res.redirect("/listings");
+}));
+
+
+
+app.all('*', (req, res, next) => {
+  next(new ExpressError(404, "Page not found!"));
 });
 
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message = "Something went wrong!" } = err;
+  res.status(statusCode).render("error.ejs", { err });
+});
 
  app.listen(8080 , () =>{
   console.log("server is listenging to port 8080")

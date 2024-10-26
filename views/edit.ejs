@@ -1,36 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wanderlust</title>
-  </head>
+<% layout('/layouts/boilerplate') %>
   <body>
-    <h3>Edit your Listing</h3>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
-      <input name="listing[title]" value="<%= listing.title %>" type="text" />
-      <br /><br />
-      <textarea name="listing[description]">
-<%= listing.description %></textarea
-      >
-      <br /><br />
-      <input name="listing[image]" value="<%= listing.image %>" type="text" />
-      <br /><br />
-      <input name="listing[price]" value="<%= listing.price %>" type="number" />
-      <br /><br />
-      <input
-        name="listing[country]"
-        value="<%= listing.country %>"
-        type="text"
-      />
-      <br /><br />
-      <input
-        name="listing[location]"
-        value="<%= listing.location %>"
-        type="text"
-      />
-      <br /><br />
-      <button>Edit</button>
-    </form>
-  </body>
-</html>
+    <div class="row mt-3">
+      <div class="col-8 offset-2">
+    
+        <h3>Edit your Listing</h3><br>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation"  >
+          <div class="mb-3">
+            <label for="title" class="form-label"><b>Title</b></label>
+            <br>
+            <input class="form-control" id="title" name="listing[title]" value="<%= listing.title %>" type="text" required />
+          </div>
+          
+          <br /><br />
+    
+          <div class="mb-3">
+            <label for="description" class="form-label"><b>Description</b></label>
+            <br>
+            <textarea  class="form-control" id="description" name="listing[description]"><%=listing.description %> </textarea>
+          </div>
+          
+          <br /><br />
+    
+          <div class="mb-3">
+            <label for="image" class="form-label"><b>Image</b></label>
+            <br>
+            <input class="form-control" id="image" name="listing[image]" value="<%= listing.image %>" type="text" required />
+          </div>
+          
+          <br /><br />
+    
+          <div class="row">
+            <div class="col-md"><br>
+              <label for="price" class="form-label"><b>Price</b></label>
+              <br>
+              <input class="form-control" id="price" name="listing[price]" value="<%= listing.price %>" type="number" required />
+            </div>
+    
+            <br /><br />
+    
+            <div class="col-md-8"><br>
+              <label for="country" class="form-label"><b>Country</b></label>
+              <br>
+              <input class="form-control" id="country" name="listing[country]" value="<%= listing.country %>" type="text" required />
+            </div>
+          </div>
+          
+          <br /><br />
+          <div class="mb-3">
+            <label for="location" class="form-label"><b>Location</b></label>
+            <br>
+            <input class="form-control" id="location" name="listing[location]" value="<%= listing.location %>" type="text" required />
+          </div>
+         
+          <br /><br />
+          <button type="submit" class="btn btn-dark edit-btn mt-3">Edit</button>
+          
+        </form>
+    
+      </div>
+    </div> 
+    <br> 
+  
+    <script>
+      // JavaScript for Bootstrap form validation
+      (function() {
+          'use strict';
+          // Fetch all forms with the 'needs-validation' class
+          var forms = document.querySelectorAll('.needs-validation');
+      
+          // Loop over each form and prevent submission if invalid
+          Array.prototype.slice.call(forms).forEach(function(form) {
+              form.addEventListener('submit', function(event) {
+                  if (!form.checkValidity()) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                  }
+                  form.classList.add('was-validated');
+              }, false);
+          });
+      })();
+      </script>
+</body>    

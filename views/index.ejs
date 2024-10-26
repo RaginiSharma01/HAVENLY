@@ -16,8 +16,14 @@
             <img style="height: 20rem !important" src="<%- listing.image %>" class="card-img-top" alt="<%= listing.title %>">
             <div class="card-img-overlay"></div>
             <div class="card-body">
-              <h5 class="card-title"><b><%= listing.title %></b></h5>
-             <h5><p><strong>Price:</strong> &#8377;<%= listing.price %>/ Night</p></h5> 
+              <h5 class="card-title"><b><%- listing.title %></b></h5>
+             <h5>
+              <p>
+                <b>Price:</b>&#8377; 
+                <%-listing.price%>
+                    
+            </p>
+             </h5> 
               <p><strong>Location:</strong> <%= listing.location %>, <%= listing.country %></p>
             </div>
           </div>
