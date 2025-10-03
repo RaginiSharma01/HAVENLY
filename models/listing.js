@@ -1,31 +1,32 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const review = require("./review");
-const { ref } = require("joi");
 
 const listingSchema = new Schema({
   title: String,
   description: String,
-  image: String,
+  image: {
+    url: String,
+    filename: String,
+  },
   price: Number,
   location: String,
   country: String,
-  reviews :[{
+  reviews: [{
     type: Schema.Types.ObjectId,
-    ref:"Review",
+    ref: "Review",
+  }],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
-],
-owner:{
-  type:Schema.Types.ObjectId,
-  ref:"User",
-},
 });
 
-listingSchema.post("findOneAndDelete", async(listing)=>{
-  if(listing){
-    await review.deleteMany({_id:{$in:listing.reviews}})
-  }
 
+listingSchema.post("findOneAndDelete", async (listing) => {
+  if (listing) {
+    await review.deleteMany({ _id: { $in: listing.reviews } });
+  }
 });
 
 const Listing = mongoose.model("Listing", listingSchema);

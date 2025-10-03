@@ -3,6 +3,9 @@ const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing");
 const flash = require("connect-flash");
+const multer = require('multer');
+const{storage} = require("../cloudConfig.js");
+const uploads = multer({storage});
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controllers/listing.js");
 
@@ -18,6 +21,7 @@ res.render("new");
 });
   
 
+
 //show route 
 router.get("/:id", wrapAsync(async (req, res) => {
   let { id } = req.params;
@@ -28,22 +32,38 @@ router.get("/:id", wrapAsync(async (req, res) => {
     return res.redirect("/listings"); 
   }
   
-  res.render("show.ejs", { listing }); // Ensure rendering if listing exists
+  res.render("show.ejs", { 
+    listing,
+    mapToken: process.env.MAP_TOKEN // <-- pass the Mapbox token here
+  });
 }));
-;
+
 
 
 //Create route
-router.post("/", isLoggedIn,validateListing,
-    wrapAsync(async (req, res,next) => {   
-      const newListing = new Listing(req.body.listing);  // No nested structure
-      newListing.owner=req.user._id;
-      await newListing.save();
-      req.flash("success" , "New listing created!");
-      res.redirect("/listings");
-    
-    })
-  );
+// Create route
+router.post(
+  "/",
+  isLoggedIn,
+  uploads.single("image"),   
+  validateListing,
+  wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    newListing.owner = req.user._id;
+
+    if (req.file) {
+      newListing.image = {
+        url: req.file.path,        // Cloudinary URL
+        filename: req.file.filename // Cloudinary filename (for deletion later)
+      };
+    }
+
+    await newListing.save();
+    req.flash("success", "New listing created!");
+    res.redirect("/listings");
+  })
+);
+
   
   //edit route
   router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(async (req, res) => {
