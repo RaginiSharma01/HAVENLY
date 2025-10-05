@@ -2,12 +2,79 @@
 
 <body>
     
-    <!-- <form action="/listings/new" method="GET">
-    <button>Create New Listing</button>
-  </form> -->
+   <style>
+  
 
+ #filters{
+      display:flex;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+.filter{
+      text-align: center;
+      margin-right: 2 rem ;
+      margin-top: 2 rem;
+      opacity: 0.7;
+}
+.filter:hover{
+  opacity: 1;
+  cursor: pointer;
+}
+.filter p {
+  font-size:0.8 rem;
+}
+   </style>
+<div id="filters">
+  <div class="filter">
+    <i class="fa-solid fa-fire"></i> <p>Trending<p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-bed"></i><p>Rooms</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-mountain-city"></i><p>Iconic cities</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-mountain"></i> <p>Mountains</p>
+  </div>
+  <div class="filter">
+    <i class="fa-brands fa-fort-awesome"></i> <p>Castles</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-snowflake"></i><p>Arctic</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-campground"></i><p>Camping</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-cow"></i><p>Farms</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-person-swimming"></i><p>Amazing pool</p>
+  </div>
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+  <input class="form-check-input" 
+  type="checkbox" 
+  role="switch" 
+  id="switchCheckDefault">
+  <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+</div>
+  </div>
+  <p class="d-inline-flex gap-1">
+  <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  </a>
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+  </div>
+</div>
+</div>
   <div class="container">
-    <h1 class="my-4">All Listings</h1>
+    <!-- <h1 class="my-4">All Listings</h1> -->
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
       <% allListings.forEach((listing) => { %>
         <a href="/listings/<%- listing._id %>" class="listingLink">
@@ -33,3 +100,9 @@
   </div>
 </body>
 
+<script>
+  let taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", () =>{
+    console.log("clicked");
+  })
+</script>

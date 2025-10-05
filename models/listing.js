@@ -20,6 +20,18 @@ const listingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
+  geometry: {
+  type: {
+    type: String,
+    enum: ['Point'],
+    required: false  // Changed to false temporarily
+  },
+  coordinates: {
+    type: [Number],
+    required: false  // Changed to false temporarily
+  }
+},
+
 });
 
 

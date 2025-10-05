@@ -55,9 +55,9 @@ const sessionOptions = {
 };
 
 // Routes
-app.get("/", (req, res) => {
-  res.send("Hello, I am root");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello, I am root");
+// });
 
 
 app.use(session(sessionOptions));
