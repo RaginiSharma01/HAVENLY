@@ -9,11 +9,17 @@
       display:flex;
       flex-wrap: wrap;
       margin-top: 2rem;
+      align-items: center;
+      
+    }
+    #filters p {
+      padding-left: 1rem;
+
     }
 .filter{
       text-align: center;
-      margin-right: 2 rem ;
-      margin-top: 2 rem;
+      margin-right: 2rem ;
+      margin-top: 2rem;
       opacity: 0.7;
 }
 .filter:hover{
@@ -21,7 +27,20 @@
   cursor: pointer;
 }
 .filter p {
-  font-size:0.8 rem;
+  font-size:0.8rem;
+}
+.tax_info{
+ display: none; 
+}
+.tax-toggle{
+  border: 1px solid black;
+  border-radius:1rem;
+  height: 2.5em;
+  padding: 1px;
+  margin:2rem;
+  display: flex;
+  align-items: center;
+
 }
    </style>
 <div id="filters">
@@ -52,6 +71,15 @@
   <div class="filter">
     <i class="fa-solid fa-person-swimming"></i><p>Amazing pool</p>
   </div>
+  <div class="filter">
+    <i class="fa-solid fa-igloo"></i> <p>Dome</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-wine-glass"></i><p>Vineyard</p>
+  </div>
+  <div class="filter">
+    <i class="fa-solid fa-ship"></i><p>boats</p>
+  </div>
   <div class="tax-toggle">
     <div class="form-check-reverse form-switch">
   <input class="form-check-input" 
@@ -60,7 +88,7 @@
   id="switchCheckDefault">
   <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
 </div>
-  </div>
+  <!-- </div>
   <p class="d-inline-flex gap-1">
   <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
   </a>
@@ -70,7 +98,7 @@
 <div class="collapse" id="collapseExample">
   <div class="card card-body">
     Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-  </div>
+  </div> -->
 </div>
 </div>
   <div class="container">
@@ -88,6 +116,7 @@
               <p>
                 <b>Price:</b>&#8377; 
                 <%-listing.price%>
+                <i class="tax_info">&nbsp; &nbsp;+18% GST</i>
                     
             </p>
              </h5> 
@@ -104,5 +133,15 @@
   let taxSwitch = document.getElementById("switchCheckDefault");
   taxSwitch.addEventListener("click", () =>{
     console.log("clicked");
+    let taxInfo = document.getElementsByClassName("tax_info");
+    console.log(taxInfo);
+    
+    for(info of taxInfo){
+      if(info.style.display !="inline"){
+      info.style.display="inline";
+      }else{
+        info.style.display = "none";
+      }
+    }
   })
 </script>
